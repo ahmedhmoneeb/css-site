@@ -19,6 +19,32 @@
 window.addEventListener("load",connect)
 function connect()
 {
+
+                                try
+                                {
+                                        asyncRequest=new XMLHttpRequest();
+                                        asyncRequest.open("GET","//localhost/gproject/getStatus.php?speaker_id=1",true);
+                                        asyncRequest.addEventListener("readystatechange",processRequest);
+                                        asyncRequest.send(null);
+                                }
+                                catch(exception)
+                                {
+                                        alert("Request Failed");
+                                }
+
+                        function processRequest()
+                        {
+
+                                if(asyncRequest.readyState==4)
+                                {
+                                        state = asyncRequest.responseText;
+                                        //alert(state);
+                                        temp = "on";
+                                        if((''+state).match(temp))
+                                        document.getElementById("red-ball").setAttribute("src","img/on.png");
+                                }
+                        }
+
 playbut=document.getElementById("playbut");
 playbut.addEventListener("click",function () {play("http://192.168.1.77/css-api/play.php?SpeakerID=1&FileName=1.mp3")});
 pausebut=document.getElementById("pausebut");
@@ -34,31 +60,7 @@ lamp.addEventListener("load",checklamp);
 function checklamp()
 {
 
-{
-                                try
-                                {
-                                        asyncRequest=new XMLHttpRequest();
-                                        asyncRequest.open("GET","//192.168.1.77/css-api/getStatus.php?speaker_id=1",true);
-                                        asyncRequest.addEventListener("readystatechange",processRequest);
-                                        asyncRequest.send(null);
-                                }
-                                catch(exception)
-                                {
-                                        alert("Request Failed");
-                                }
-                        }
-                        function processRequest()
-                        {
 
-                                if(asyncRequest.readyState==4)
-                                {
-                                        state = asyncRequest.responseText;
-                                        alert(state);
-                                        temp = "on";
-                                        if((''+state).match(temp))
-                                        document.getElementById("red-ball").setAttribute("src","img/on.png");
-                                }
-                        }
 
 
 }
