@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<style>
+		</style>
+		<script>
+			window.addEventListener("load",function (){getContent("//localhost/gproject/getStatus.php?speaker_id=2");})
+			var asyncRequest;
+			function getContent(URL)
+			{	
+				try
+				{
+					asyncRequest=new XMLHttpRequest();
+					asyncRequest.open("GET",URL,true);
+					asyncRequest.addEventListener("readystatechange",processRequest);
+					asyncRequest.send();
+				}
+				catch(exception)
+				{
+					alert("Request Failed");
+				}
+			}
+			function processRequest()
+			{
+				if(asyncRequest.readyState==4)
+				{
+					
+					state = asyncRequest.responseText;
+					alert(state);
+					if(state=="on")
+					document.getElementById("conn").setAttribute("src","green.png");
+				}
+			}
+		
+		</script>
+	</head>
+	<body>
+			<img id="conn" src="red.png" />
+	</body>
+</html>
