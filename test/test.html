@@ -2,36 +2,37 @@
 	<head>
 		<style>
 		</style>
-		<script>
-			window.addEventListener("load",function (){getContent();})
-			var asyncRequest;
-			function getContent()
-			{	
-				try
-				{
-					asyncRequest=new XMLHttpRequest();
-					asyncRequest.open("GET","//192.168.1.77/css-api/getStatus.php?speaker_id=1",true);
-					asyncRequest.addEventListener("readystatechange",processRequest);
-					asyncRequest.send(null);
-				}
-				catch(exception)
-				{
-					alert("Request Failed");
-				}
-			}
-			function processRequest()
-			{
+                <script>
+                        window.addEventListener("load",function (){getContent();})
+                        var asyncRequest;
+                        function getContent()
+                        {
+                                try
+                                {
+                                        asyncRequest=new XMLHttpRequest();
+                                        asyncRequest.open("GET","//192.168.1.77/css-api/getStatus.php?speaker_id=1",true);
+                                        asyncRequest.addEventListener("readystatechange",processRequest);
+                                        asyncRequest.send(null);
+                                }
+                                catch(exception)
+                                {
+                                        alert("Request Failed");
+                                }
+                        }
+                        function processRequest()
+                        {
 
-				if(asyncRequest.readyState==4)
-				{
-					state = asyncRequest.responseText;
-					alert(state);
-					if(state=="on")
-					document.getElementById("conn").setAttribute("src","green.png");
-				}
-			}
-		
-		</script>
+                                if(asyncRequest.readyState==4)
+                                {
+                                        state = asyncRequest.responseText;
+                                        alert(state);
+                                        temp = "on";
+                                        if((''+state).match(temp))
+                                        document.getElementById("conn").setAttribute("src","green.png");
+                                }
+                        }
+
+                </script>
 	</head>
 	<body>
 			<img id="conn" src="red.png" />
