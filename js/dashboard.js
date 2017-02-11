@@ -1,6 +1,6 @@
 
 var serverAddress = '//localhost';
-var serverPath = "/gproject/";
+var serverPath = "/css-api/";
 window.addEventListener("load",connect);
 
 function connect()
