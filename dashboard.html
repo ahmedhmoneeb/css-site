@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
-   <head>
+
+    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width" />
       <title>Cloud Sound System </title>
@@ -14,108 +15,9 @@
       <script type="text/javascript" src="js/modernizr.js"></script>
       <script type="text/javascript" src="js/responsee.js"></script>          
 	  <script type="text/javascript" src="js/buttinjs.js"></script>
-
-<script>
-window.addEventListener("load",connect)
-function connect()
-{
-
-                                try
-                                {
-                                        asyncRequest=new XMLHttpRequest();
-                                        asyncRequest.open("GET","//localhost/gproject/getStatus.php?speaker_id=1",true);
-                                        asyncRequest.addEventListener("readystatechange",processRequest);
-                                        asyncRequest.send(null);
-                                }
-                                catch(exception)
-                                {
-                                        alert("Request Failed");
-                                }
-
-                        function processRequest()
-                        {
-
-                                if(asyncRequest.readyState==4)
-                                {
-                                        state = asyncRequest.responseText;
-                                        //alert(state);
-                                        temp = "on";
-                                        if((''+state).match(temp))
-                                        document.getElementById("red-ball").setAttribute("src","img/on.png");
-                                }
-                        }
-
-playbut=document.getElementById("playbut");
-playbut.addEventListener("click",function () {play("http://192.168.1.77/css-api/play.php?SpeakerID=1&FileName=1.mp3")});
-pausebut=document.getElementById("pausebut");
-pausebut.addEventListener("click",function () {pause("http://192.168.1.77/css-api/pause.php?SpeakerID=1")});
-stopbut=document.getElementById("stopbut");
-stopbut.addEventListener("click",function () {stop("http://192.168.1.77/css-api/stop.php?SpeakerID=1")});
-
-lamp = document.getElementById("red-ball");
-lamp.addEventListener("load",checklamp);
-
-}
-
-function checklamp()
-{
-
-
-
-
-}
-
-function playsong(e)
-{
-if(e.target.tagName.toLowerCase()=="li")
-{
-pathsong=e.target.innerHTML;
-play(""+pathsong);
-}
-}
-function play (url)
-{
-            try
-				{
-					ob=new XMLHttpRequest();
-					ob.open("GET",url,true);
-					ob.send();
-				}
-			catch(exception)
-				{
-					alert("Request Failed")
-				}
-				
-}
-function pause(url)
-{
-            try
-				{
-					ob=new XMLHttpRequest();
-					ob.open("GET",url,true);
-					ob.send();
-				}
-			catch(exception)
-				{
-					alert("Request Failed")
-				}
-}
-function stop (url)
-{
-            try
-				{
-					ob=new XMLHttpRequest();
-					ob.open("GET",url,true);
-					ob.send();
-				}
-			catch(exception)
-				{
-					alert("Request Failed")
-				}
-}
-</script>
-
+	  <script type="text/javascript" src="js/dashboard.js"></script>
    </head>
+
    <body class="size-1140">
       <header class="margin-bottom">
          <div class="line">
@@ -159,16 +61,18 @@ function stop (url)
                   <!--speaker 1 text -->                 
                   <div class="s-12 l-5 post-text"> 
 						<div style="width:40px; height:40px; float:right; margin-top:10px; margin-right:20px;">
-						 <img src="img/off.png" id="red-ball" width="40" height="40" />
+						 <img src="img/off.png" id="status_led" width="40" height="40" />
 						</div>
-					 <h2>Speaker 1</h2>
-                     <p  style="font-size:20px;">
+					 <h2 id="speaker_name">Speaker1</h2>
+                     <p  style="font-size:20px;display:inline;">
 						
-						Status : OFF</br>
-						Location : FCI - Lab 2A
+						Country : <span id="speaker_country">OFF</span></br>
+						City : <span id="speaker_city">OFF</span></br>
+						Location : <span id="speaker_location">OFF</span></br>
+						IP : <span id="speaker_ip">OFF</span></br>
+						Volume : <span id="speaker_volume">OFF</span></br>
 					 </p>
-					 </br>
-					 <button class="button button1" id="Turn On/Off" >
+					 <button class="button button1" id="switch_button" >
 					 Turn On/Off
 					 </button>
                   </div>
@@ -184,42 +88,29 @@ function stop (url)
                   <!-- NEWS 1 -->           
                   <img src="img/pic04.jpg" alt="My Playlist"/>          
                   <div class="aside-block margin-bottom">
-                     <center><h3>My Playlist</h3></center>			 								
-									<ol style="list-style-type: lower-roman;">
-										<li><a href="#">Try Everything<a/></li> <br>
-										<li><a href="#">Cheap Thrills<a/></li> <br>
-										<li><a href="#">Up And Up<a/></li>
-									</ol>
-								
-							
+                     <center><h3>Files List</h3></center>			 								
+                            <div id="files_list" style="color:black;"></div>
+                            <div >
+                                <form id="upload_file" action="" method="post" enctype="multipart/form-data">
+                                    <input type="file" name="fileToUpload" id="fileToUpload">
+                                    <input type="submit" value="Upload File" name="submit">
+                                </form><br><br><br><br>
+							</div>
                   </div>
                   </div></aside>
                </aside>
             </div>
          </div>
       </section>
-     <!-- FOOTER -->       
-      <div class="line">
-         <footer>
-            <div class="s-12 l-8">
-              <p>
-               </p>
-            </div>
-            
-         </footer>
-      </div>
 	  <!--media player-->
 	  <div style="position:fixed; bottom:0; right:0; width:100%; height:20%;" >
          <footer >
             <div >
                 <table style="background-color:#162b4d;">
 						<form class="customform" >
-							 <img src="img/Playbut.gif" id="playbut" style="width:60px; height:60px;">
-							 <img src="img/pausebut.gif" id="pausebut" style="width:60px; height:60px; margin-left:100px;">
-							 <input type="button" id="stopbut" style="width:60px; height:60px; margin-left:140px; background-color:;#fca604">
-							 <div align="right; margin-bottom:-100px;" >
-							 <input type="file" id="thefile" style="font-size:15px; ">
-							 </div>
+							 <img src="img/play_button.png" id="play_button" style="width:65px; height:65px;margin-left:100px;margin-right:20px">
+							 <img src="img/stop_button.png" id="stop_button" style="width:70px; height:70px; margin-left:10px;">
+							 
 						</form>
 						
 			    </table>
